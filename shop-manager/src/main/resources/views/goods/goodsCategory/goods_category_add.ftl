@@ -124,7 +124,7 @@
                               <div class="form-group">
                                   <label class="control-label col-sm-2">手机分类名称</label>
                                   <div class="col-sm-6">
-                                      <input type="text" placeholder="手机分类名称" class="form-control large" name="mobile_name" value="">
+                                      <input type="text" placeholder="手机分类名称" class="form-control large" name="mobileName" value="">
                                       <span class="help-inline" style="color:#F00; display:none;" id="err_mobile_name"></span>
                                   </div>
                               </div>
@@ -152,7 +152,7 @@
                                   <div class="col-sm-10">
                                       <label>
                                           <input checked="checked" type="radio" name="is_show" value="1"> 是
-                                          <input type="radio" name="is_show" value="0"> 否
+                                          <input type="radio" name="isShow" value="0"> 否
 
                                       </label>
                                   </div>
@@ -161,7 +161,7 @@
                                   <label class="control-label col-sm-2">分类分组:</label>
 
                                   <div class="col-sm-1">
-                                      <select name="cat_group" id="cat_group" class="form-control">
+                                      <select name="catGroup" id="cat_group" class="form-control">
                                           <option value="0">0</option>
                                           <option value='1' >1</option>"
                                           <option value='2' >2</option>"
@@ -198,14 +198,14 @@
                               <div class="form-group">
                                   <label class="control-label col-sm-2">显示排序</label>
                                   <div class="col-sm-1">
-                                      <input type="text" placeholder="50" class="form-control large" name="sort_order" value=""/>
+                                      <input type="text" placeholder="50" class="form-control large" name="sortOrder" value=""/>
                                       <span class="help-inline" style="color:#F00; display:none;" id="err_sort_order"></span>
                                   </div>
                               </div>
                               <div class="form-group">
                                   <label class="control-label col-sm-2">分佣比例</label>
                                   <div class="col-sm-1">
-                                      <input type="text" placeholder="50" class="form-control large" name="commission_rate" id="commission_rate" value="0" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"/>
+                                      <input type="text" placeholder="50" class="form-control large" name="commissionRate" id="commissionRate" value="0" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"/>
                                   </div>
                                   <div class="col-sm-1" style="margin-top: 6px;margin-left: -20px;">
                                       <span>%</span>
@@ -213,9 +213,8 @@
                               </div>
                           </div>
                           <div class="box-footer">
-                              <input type="hidden" name="id" value="">
                               <button type="reset" class="btn btn-primary pull-left"><i class="icon-ok"></i>重填  </button>
-                              <button type="button" onclick="ajax_submit_form('category_form','/index/Admin/Goods/addEditCategory/is_ajax/1');" class="btn btn-primary pull-right"><i class="icon-ok"></i>提交  </button>
+                              <button type="button" onclick="ajaxSubmitForm('category_form','/index/Admin/Goods/addEditCategory/is_ajax/1');" class="btn btn-primary pull-right"><i class="icon-ok"></i>提交  </button>
                           </div>
 <#--                          <input type="hidden" name="__hash__" value="3089b9badfca8307d7d520487d125ae4_6385f66dff50b4c04db3ec79b8a9d245" />-->
                             <#--分类等级 -->
@@ -278,7 +277,7 @@
        */
       function ajaxSubmitForm() {
           $.ajax({
-              url: "${ctx}/goods/category/save",
+              url: "${ctx}/goods_category/save",
               type: "post",
               data: $("#category_form").serialize(),
               dataType:"JSON",
@@ -286,9 +285,9 @@
                   if (result.code==200){
                       layer.confirm("保存成功",{btn:['继续新增','返回列表']},
                           function () {
-                              window.location.href="${ctx}/goods/category/add";
+                              window.location.href="${ctx}/goods_category/addGoodsCategoryPage";
                           },function () {
-                              window.location.href="${ctx}/goods/category/list";
+                              window.location.href="${ctx}/goods_category/index";
                           });
                   }else {
                       layer.alert("保存失败");
