@@ -116,7 +116,7 @@
 	            </a>
 	            <ul class="treeview-menu">
 	            	<li onclick="makecss(this)" data-id="categoryList_Goods">
-	            		<a href='商品管理/商品分类.html' target='rightContent'><i class="fa fa-circle-o"></i>商品分类</a>
+	            		<a href='${ctx}/goods_category/index' target='rightContent'><i class="fa fa-circle-o"></i>商品分类</a>
 	            	</li><li onclick="makecss(this)" data-id="goodsList_Goods">
 	            		<a href='商品管理/商品列表.html' target='rightContent'><i class="fa fa-circle-o"></i>商品列表</a>
 	            	</li><li onclick="makecss(this)" data-id="stock_list_Goods">
