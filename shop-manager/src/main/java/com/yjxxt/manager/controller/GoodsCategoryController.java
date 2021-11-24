@@ -2,7 +2,7 @@ package com.yjxxt.manager.controller;
 
 import com.yjxxt.common.result.BaseResult;
 import com.yjxxt.manager.pojo.GoodsCategory;
-import com.yjxxt.manager.service.GoodsCategoryService;
+import com.yjxxt.manager.service.IGoodsCategoryService;
 import com.yjxxt.manager.vo.GoodsCategoryVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("goods_category")
 public class GoodsCategoryController {
     @Resource
-    private GoodsCategoryService goodsCategoryService;
+    private IGoodsCategoryService goodsCategoryService;
 
     /**
      * 商品分类列表

@@ -1,9 +1,10 @@
-package com.yjxxt.manager.service;
+package com.yjxxt.manager.service.impl;
 
 import com.yjxxt.manager.mapper.GoodsCategoryMapper;
 import com.yjxxt.manager.pojo.GoodsCategory;
 import com.yjxxt.manager.pojo.GoodsCategoryExample;
 
+import com.yjxxt.manager.service.IGoodsCategoryService;
 import com.yjxxt.manager.vo.GoodsCategoryVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GoodsCategoryService {
+public class GoodsCategoryServiceImpl implements IGoodsCategoryService {
     @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;
 
+    @Override
     public GoodsCategory queryGoodsCategoryById(Short id){
         return goodsCategoryMapper.selectByPrimaryKey(id);
     }
+    @Override
     public GoodsCategory queryGoodsCategoryByGoodsCategoryExample(Short id){
         GoodsCategoryExample example=new GoodsCategoryExample();
         example.createCriteria().andIdEqualTo(id);
@@ -31,18 +34,21 @@ public class GoodsCategoryService {
      * @param parentId
      * @return
      */
+    @Override
     public List<GoodsCategory> queryGoodsCategoriesByParentId(Short parentId){
         GoodsCategoryExample example=new GoodsCategoryExample();
         example.createCriteria().andParentIdEqualTo(parentId);
        return goodsCategoryMapper.selectByExample(example);
     }
 
+    @Override
     public int saveGoodsCategory(GoodsCategory goodsCategory) {
         return goodsCategoryMapper.insertSelective(goodsCategory);
     }
     /**
      * 查询一级 二级 三级 分类数据
      */
+    @Override
     public List<GoodsCategoryVo> queryGoodsCategoryVoForListView(){
         GoodsCategoryExample example=new GoodsCategoryExample();
         example.createCriteria().andParentIdEqualTo((short) 0);

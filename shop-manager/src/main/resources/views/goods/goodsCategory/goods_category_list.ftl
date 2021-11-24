@@ -2,7 +2,7 @@
 <#assign ctx=request.contextPath/>
 <html>
 <head>
-    <#include "../../head.ftl"/>
+    <#include "../../head.ftl" />
     <script type="text/javascript">
         function delfunc(obj) {
             layer.confirm('确认删除？', {
@@ -123,6 +123,7 @@
                             </div>
                         </nav>
                     </div><!-- /.box-header -->
+
                     <div class="box-body">
                         <div class="row">
                             <div class="col-sm-12">
@@ -145,21 +146,17 @@
                                         <tr role="row" align="center" class="1" id="1_1">
                                             <td>${gcv01.id}</td>
                                             <td align="left" style="padding-left:5em">
-<span class="glyphicon glyphicon-plus btn-warning"
-      style="padding:2px; font-size:12px;"
-      id="icon_1_1" aria-hidden="false"
-      onclick="rowClicked(this)"></span>&nbsp;
-                                                <span>${gcv01.name}</span>
+                        <span class="glyphicon glyphicon-plus btn-warning"
+                              style="padding:2px; font-size:12px;" id="icon_1_1" aria-hidden="false"
+                              onclick="rowClicked(this)"></span>&nbsp; <span>${gcv01.name}</span>
                                             </td>
                                             <td><span>${gcv01.mobileName}</span></td>
                                             <td>
-                                                <img width="20" height="20"
-                                                     src="${ctx}/images/yes.png"
+                                                <img width="20" height="20" src="${ctx}/images/yes.png"
                                                      onclick="changeTableVal('goods_category','id','1','is_hot',this)"/>
                                             </td>
                                             <td>
-                                                <img width="20" height="20"
-                                                     src="${ctx}/images/yes.png"
+                                                <img width="20" height="20" src="${ctx}/images/yes.png"
                                                      onclick="changeTableVal('goods_category','id','1','is_show',this)"/>
                                             </td>
                                             <td>
@@ -167,19 +164,17 @@
                                                        onchange="updateSort('goods_category','id','1','cat_group',this)"
                                                        onkeyup="this.value=this.value.replace(/[^\d]/g,'')"
                                                        onpaste="this.value=this.value.replace(/[^\d]/g,'')" size="4"
-                                                       value="${gcv01.catGroup}" class="input-sm"/>
+                                                       value="${(gcv01.catGroup)!""}" class="input-sm"/>
                                             </td>
                                             <td>
                                                 <input type="text"
                                                        onchange="updateSort('goods_category','id','1','sort_order',this)"
                                                        onkeyup="this.value=this.value.replace(/[^\d]/g,'')"
                                                        onpaste="this.value=this.value.replace(/[^\d]/g,'')" size="4"
-                                                       value="${gcv01.sortOrder}"
-                                                       class="input-sm"/>
+                                                       value="${(gcv01.sortOrder)!""}" class="input-sm"/>
                                             </td>
                                             <td>
-                                                <a class="btn btn-primary" href="商品分类-编辑.html"><i
-                                                            class="fa fa-pencil"></i></a>
+                                                <a class="btn btn-primary" href="商品分类-编辑.html"><i class="fa fa-pencil"></i></a>
                                                 <a class="btn btn-danger"
                                                    href="javascript:del_fun('/index/Admin/Goods/delGoodsCategory/id/1');"><i
                                                             class="fa fa-trash-o"></i></a>
@@ -189,22 +184,18 @@
                                             <tr role="row" align="center" class="2" id="2_12" style="display:none">
                                                 <td>${gcv02.id}</td>
                                                 <td align="left" style="padding-left:10em">
-                                                    <span class="glyphicon glyphicon-plus btn-warning"
-                                                          style="padding:2px; font-size:12px;"
-                                                          id="icon_2_12"
-                                                          aria-hidden="false"
-                                                          onclick="rowClicked(this)"></span>&nbsp;
+                        <span class="glyphicon glyphicon-plus btn-warning"
+                              style="padding:2px; font-size:12px;" id="icon_2_12"
+                              aria-hidden="false" onclick="rowClicked(this)"></span>&nbsp;
                                                     <span>${gcv02.name}</span>
                                                 </td>
                                                 <td><span>${gcv02.mobileName}</span></td>
                                                 <td>
-                                                    <img width="20" height="20"
-                                                         src="${ctx}/images/cancel.png"
+                                                    <img width="20" height="20" src="${ctx}/images/cancel.png"
                                                          onclick="changeTableVal('goods_category','id','12','is_hot',this)"/>
                                                 </td>
                                                 <td>
-                                                    <img width="20" height="20"
-                                                         src="${ctx}/images/yes.png"
+                                                    <img width="20" height="20" src="${ctx}/images/yes.png"
                                                          onclick="changeTableVal('goods_category','id','12','is_show',this)"/>
                                                 </td>
                                                 <td>
@@ -212,16 +203,14 @@
                                                            onchange="updateSort('goods_category','id','12','cat_group',this)"
                                                            onkeyup="this.value=this.value.replace(/[^\d]/g,'')"
                                                            onpaste="this.value=this.value.replace(/[^\d]/g,'')" size="4"
-                                                           value="${gcv02.catGroup}"
-                                                           class="input-sm"/>
+                                                           value="${gcv02.catGroup}" class="input-sm"/>
                                                 </td>
                                                 <td>
                                                     <input type="text"
                                                            onchange="updateSort('goods_category','id','12','sort_order',this)"
                                                            onkeyup="this.value=this.value.replace(/[^\d]/g,'')"
                                                            onpaste="this.value=this.value.replace(/[^\d]/g,'')" size="4"
-                                                           value="${gcv02.sortOrder}"
-                                                           class="input-sm"/>
+                                                           value="${gcv02.sortOrder}" class="input-sm"/>
                                                 </td>
                                                 <td>
                                                     <a class="btn btn-primary"
@@ -240,42 +229,33 @@
                                                     </td>
                                                     <td><span>${gcv03.mobileName}</span></td>
                                                     <td>
-                                                        <img width="20" height="20"
-                                                             src="${ctx}/images/cancel.png"
+                                                        <img width="20" height="20" src="${ctx}/images/cancel.png"
                                                              onclick="changeTableVal('goods_category','id','100','is_hot',this)"/>
                                                     </td>
                                                     <td>
-                                                        <img width="20" height="20"
-                                                             src="${ctx}/images/yes.png"
+                                                        <img width="20" height="20" src="${ctx}/images/yes.png"
                                                              onclick="changeTableVal('goods_category','id','100','is_show',this)"/>
                                                     </td>
                                                     <td>
                                                         <input type="text"
                                                                onchange="updateSort('goods_category','id','100','cat_group',this)"
                                                                onkeyup="this.value=this.value.replace(/[^\d]/g,'')"
-                                                               onpaste="this.value=this.value.replace(/[^\d]/g,'')"
-                                                               size="4"
-                                                               value="${gcv03.catGroup}"
-                                                               class="input-sm"/>
+                                                               onpaste="this.value=this.value.replace(/[^\d]/g,'')" size="4"
+                                                               value="${gcv03.catGroup}" class="input-sm"/>
                                                     </td>
                                                     <td>
                                                         <input type="text"
                                                                onchange="updateSort('goods_category','id','100','sort_order',this)"
                                                                onkeyup="this.value=this.value.replace(/[^\d]/g,'')"
-                                                               onpaste="this.value=this.value.replace(/[^\d]/g,'')"
-                                                               size="4"
-                                                               value="${gcv03.sortOrder}"
-                                                               class="input-sm"/>
+                                                               onpaste="this.value=this.value.replace(/[^\d]/g,'')" size="4"
+                                                               value="${gcv03.sortOrder}" class="input-sm"/>
                                                     </td>
                                                     <td>
-                                                        <a class="btn btn-primary"
-                                                           href="/index/Admin/Goods/addEditCategory/id/100"><i
-                                                                    class="fa fa-pencil"></i>
-                                                        </a>
+                                                        <a class="btn btn-primary" href="/index/Admin/Goods/addEditCategory/id/100"><i
+                                                                    class="fa fa-pencil"></i></a>
                                                         <a class="btn btn-danger"
-                                                           href="javascript:del_fun('/index/Admin/Goods/delGoodsCategory/id/100');">
-                                                            <i class="fa fa-trash-o"></i>
-                                                        </a>
+                                                           href="javascript:del_fun('/index/Admin/Goods/delGoodsCategory/id/100');"><i
+                                                                    class="fa fa-trash-o"></i></a>
                                                     </td>
                                                 </tr>
                                             </#list>
@@ -287,12 +267,12 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-5">
-                                <div class="dataTables_info" id="example1_info" role="status"
-                                     aria-live="polite">分页
+                                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">分页
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div><!-- /.box -->
             </div>
         </div>

@@ -64,3 +64,9 @@ mybatis:
 logging:
   level:
     com.yjxxt.manager.mapper: debug
+## 七牛配置
+qiniu:
+  ak: 8lVhcXDl3fkgTe9xDTWY75_CP89wXIpO8VDQcE0f
+  sk: vYs-jVYNpUpnbfyE7Y_h6kV6cPn81iFawDueJD4K
+  bucket: genghao2shi
+  domain: http://r320tr4hd.hn-bkt.clouddn.com/

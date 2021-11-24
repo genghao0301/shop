@@ -1311,7 +1311,7 @@
                 outData = self.getOutData(jqXHR, data);
                 params = $.extend(params, outData);
                 setTimeout(function () {
-                    if (data.error === undefined) {
+                    if (!data.error) {
                         setIndicator('indicatorSuccess', 'indicatorSuccessTitle');
                         $btnUpload.hide();
                         $btnDelete.hide();
