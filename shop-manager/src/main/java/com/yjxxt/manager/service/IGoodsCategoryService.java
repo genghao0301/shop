@@ -15,4 +15,6 @@ public interface IGoodsCategoryService {
     int saveGoodsCategory(GoodsCategory goodsCategory);
 
     List<GoodsCategoryVo> queryGoodsCategoryVoForListView();
+
+    public List<GoodsCategory> queryGoodsCategories();
 }

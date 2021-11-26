@@ -8,8 +8,12 @@ import com.yjxxt.manager.service.IGoodsCategoryService;
 import com.yjxxt.manager.vo.GoodsCategoryVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +21,12 @@ import java.util.List;
 public class GoodsCategoryServiceImpl implements IGoodsCategoryService {
     @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;
+    @Resource(name = "redisTemplate")
+    private RedisTemplate<String,Object> redisTemplate;
+
+
+    @Resource(name = "redisTemplate")
+    private ValueOperations<String,Object> valueOperations;
 
     @Override
     public GoodsCategory queryGoodsCategoryById(Short id){
@@ -93,5 +103,32 @@ public class GoodsCategoryServiceImpl implements IGoodsCategoryService {
             gcv01List.add(gcv01);
         }
         return gcv01List;
+    }
+
+    /**
+     * 从缓存中读取
+     * @return
+     */
+    @Override
+    public List<GoodsCategory> queryGoodsCategories() {
+        List<GoodsCategory> result=null;
+        //1.从缓存查询分类数据
+        String cacheKey="goods_category::list";
+        if(redisTemplate.hasKey(cacheKey)){
+            result= (List<GoodsCategory>) valueOperations.get(cacheKey);
+            if(!CollectionUtils.isEmpty(result)){
+                System.out.println("从缓存读取数据...");
+                return result;
+            }
+        }
+        // 2.从数据库查询记录
+        result= goodsCategoryMapper.selectByExample(new GoodsCategoryExample());
+        if(!CollectionUtils.isEmpty(result)){
+            // 3. 数据库存在记录 将记录存入缓存
+            valueOperations.set(cacheKey,result);
+        }
+        System.out.println("从数据库读取数据...");
+        // 4.返回数据
+        return result;
     }
 }

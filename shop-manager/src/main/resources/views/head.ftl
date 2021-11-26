@@ -41,3 +41,6 @@ rel="stylesheet" type="text/css"/>-->
 <!--弹窗js 参考文档 http://layer.layui.com/-->
 <script src="${ctx}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${ctx}/js/myAjax.js"></script>
+<script type="text/javascript">
+    var ctx="${ctx}";
+</script>

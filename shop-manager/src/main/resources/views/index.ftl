@@ -118,7 +118,7 @@
 	            	<li onclick="makecss(this)" data-id="categoryList_Goods">
 	            		<a href='${ctx}/goods_category/index' target='rightContent'><i class="fa fa-circle-o"></i>商品分类</a>
 	            	</li><li onclick="makecss(this)" data-id="goodsList_Goods">
-	            		<a href='商品管理/商品列表.html' target='rightContent'><i class="fa fa-circle-o"></i>商品列表</a>
+	            		<a href='${ctx}/goods/index' target='rightContent'><i class="fa fa-circle-o"></i>商品列表</a>
 	            	</li><li onclick="makecss(this)" data-id="stock_list_Goods">
 	            		<a href='商品管理/库存日志.html' target='rightContent'><i class="fa fa-circle-o"></i>库存日志</a>
 	            	</li><li onclick="makecss(this)" data-id="goodsTypeList_Goods">

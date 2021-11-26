@@ -7,7 +7,6 @@
     <script type="text/javascript" src="${ctx}/js/fileinput.js"></script>
     <!-- 对中文的支持 -->
     <script type="text/javascript" src="${ctx}/js/fileinput_locale_zh.js"></script>
-
     <script type="text/javascript">
         function delfunc(obj) {
             layer.confirm('确认删除？', {

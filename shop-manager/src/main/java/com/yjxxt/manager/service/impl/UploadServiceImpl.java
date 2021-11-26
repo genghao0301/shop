@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
-import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
@@ -12,7 +11,6 @@ import com.yjxxt.common.result.FileResult;
 import com.yjxxt.manager.service.IUploadService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.io.InputStream;
 
 @Service

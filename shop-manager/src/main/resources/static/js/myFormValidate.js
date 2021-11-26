@@ -1,74 +1,69 @@
-
 /**
-* ajax 提交表单 到后台去验证然后回到前台提示错误
-* 验证通过后,再通过 form 自动提交
-*/
+ * ajax 提交表单 到后台去验证然后回到前台提示错误
+ * 验证通过后,再通过 form 自动提交
+ * form_id:表单id
+ * submit_url:提交的url
+ * add_url:继续新增的url
+ * list_url:返回列表的url
+ * hiddenId:隐藏域id
+ */
 before_request = 1; // 标识上一次ajax 请求有没回来, 没有回来不再进行下一次
-function ajax_submit_form(form_id,submit_url){
-
-         if(before_request == 0)
-            return false;
-              
-	$("[id^='err_']").hide();  // 隐藏提示
+function ajax_submit_form(form_id, submit_url, add_url, list_url) {
+    if (before_request == 0)
+        return false;
     $.ajax({
-                type : "POST",
-                url  : submit_url,
-                data : $('#'+form_id).serialize(),// 你的formid                
-                error: function(request) {
-                        alert("服务器繁忙, 请联系管理员!5");
-                },
-                success: function(v) {
-                    before_request = 1; // 标识ajax 请求已经返回
-                    var v =  eval('('+v+')');
-                        // 验证成功提交表单
-                    if(v.hasOwnProperty('status'))
-                    {      
-                    	alert(v.msg);
-                        if(v.status == 1)
-						{
-							if(v.hasOwnProperty('data')){
-								if(v.data.hasOwnProperty('url')){
-									location.href = v.data.url;
-								}else{
-									location.href = location.href;
-								}
-							}else{
-								location.href = location.href;
-							}
-							return true;
-                        }
-                        if(v.status == 0)
-                        {
-                            alert(v.msg);
-                            return false;
-                        }
-                            //return false;
-                    }
-                         // 验证失败提示错误
-                     for(var i in v['data'])
+        type: "POST",
+        url: submit_url,
+        data: $('#' + form_id).serialize(),// 你的formid
+        dataType: "JSON",
+        error: function (request) {
+            alert("服务器繁忙, 请联系管理员!");
+        },
+        success: function (result) {
+            before_request = 1; // 标识ajax 请求已经返回
+            console.log(result)
+            if (200 == result.code) {
+                // 设置商品id 值
+                $("#goodsId").val(result.result);
+                alert("商品添加成功");
+                /* layer.confirm("保存成功",
                      {
-                        $("#err_"+i).text(v['data'][i]).show(); // 显示对于的 错误提示
-                    }
-                }
-            });   
-            before_request = 0; // 标识ajax 请求已经发出
+                         btn: ['继续新增', '返回列表', '留在本页'],
+                         btn3: function (index) {
+                             layer.close(index);
+                         }
+                     },
+                     function () {
+                         window.location.href = add_url;
+                     }, function () {
+                         window.location.href = list_url;
+                     });*/
+            } else {
+                layer.alert("保存失败");
+            }
+        }
+    });
+    before_request = 0; // 标识ajax 请求已经发出
 }
 
+
+
+
 /**
-* 在ajax 返回提示错误时， 输入框改变时提示 将隐藏
-*/
+ * 在ajax 返回提示错误时， 输入框改变时提示 将隐藏
+ */
 $(document).ready(function(){
-	/*
+    /*
    $("input").click(function(){	           
-	    var input_name = $(this).attr("name");   
-		//$("#err_"+input_name).hide();
+        var input_name = $(this).attr("name");
+        //$("#err_"+input_name).hide();
    });
-   $("textarea").click(function(){    
-	    var input_name = $(this).attr("name");   
-		//$("#err_"+input_name).hide();
+   $("textarea").click(function(){
+        var input_name = $(this).attr("name");
+        //$("#err_"+input_name).hide();
    });
-   */   
-	
+   */
+
 });
 
 
@@ -116,26 +111,26 @@ function post_form(form_id,subbmit_url){
  *  @var  网址  url
  */
 function convert_url(url){
-   if(url){
-       url = url.replace('.html','');
-   }
+    if(url){
+        url = url.replace('.html','');
+    }
     return url;
 }
- 
-		// 输入框失去焦点 ajax 保存
+
+// 输入框失去焦点 ajax 保存
 //		$('input[name^="field_"]').on('blur', function () {
-	function ajaxUpdateField(obj){
-			 var table = $(obj).data('table');
-			 var id = $(obj).data('id');			 
-			 var field = $(obj).attr('name').replace(/field_/ig,""); // 字段名字
-			 var value = $(obj).val();				 
-			 $.ajax({
-				 type:'POST',
-				 data:{table:table,id:id, field:field,value:value}, 
-				 url:"/admin/Goods/updateField",
-				 success:function(data){					 
-						  layer.msg('修改成功', {icon: 1,time:1000});
-				 }        
-			 });			 
-	}
-	//	});	
+function ajaxUpdateField(obj){
+    var table = $(obj).data('table');
+    var id = $(obj).data('id');
+    var field = $(obj).attr('name').replace(/field_/ig,""); // 字段名字
+    var value = $(obj).val();
+    $.ajax({
+        type:'POST',
+        data:{table:table,id:id, field:field,value:value},
+        url:"/admin/Goods/updateField",
+        success:function(data){
+            layer.msg('修改成功', {icon: 1,time:1000});
+        }
+    });
+}
+//	});

@@ -39,6 +39,12 @@ public class GoodsCategoryController {
         model.addAttribute("gcList",goodsCategoryService.queryGoodsCategoriesByParentId((short) 0));
         return "goods/goodsCategory/goods_category_add";
     }
+
+    /**
+     * 根据上级Id查询 子类分类记录
+     * @param parentId
+     * @return
+     */
     @RequestMapping("queryGoodsCategoriesByParentId")
     @ResponseBody
     public List<GoodsCategory> queryGoodsCategoriesByParentId(Short parentId){
