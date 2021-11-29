@@ -92,3 +92,13 @@ qiniu:
   sk: vYs-jVYNpUpnbfyE7Y_h6kV6cPn81iFawDueJD4K
   bucket: genghao2shi
   domain: http://r320tr4hd.hn-bkt.clouddn.com/
+## dubbo 环境配置
+dubbo:
+  application:
+    name: shop-portal
+  # 使用 zookeeper 注册中心暴露服务地址
+  registry:
+    address: zookeeper://192.168.63.100:2181
+  consumer:
+    timeout: 20000
+

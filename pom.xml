@@ -12,6 +12,8 @@
         <module>shop-manager</module>
         <module>shop-common</module>
         <module>shop-generator</module>
+        <module>shop-portal</module>
+        <module>shop-rpc1</module>
     </modules>
     <!-- 继承 spring-boot-starter-parent 依赖 -->
     <!-- 使用继承方式，实现复用，符合继承的都可以被使用 -->
@@ -38,6 +40,9 @@
         <druid.version>1.1.20</druid.version>
         <!-- 七牛云sdk 依赖-->
         <qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
+        <!--dubbo 依赖-->
+        <dubbo.version>2.7.6</dubbo.version>
+
     </properties>
     <!-- 项目依赖管理 父项目只是声明依赖，子项目需要写明需要的依赖(可以省略版本
     信息) -->
@@ -73,7 +78,23 @@
             <artifactId>qiniu-java-sdk</artifactId>
             <version>${qiniu.version}</version>
         </dependency>
+
+        <!-- dubbo依赖 -->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
+
+        <!--zkClient依赖-->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-dependencies-zookeeper</artifactId>
+            <version>${dubbo.version}</version>
+            <type>pom</type>
+        </dependency>
     </dependencies>
+
     </dependencyManagement>
 
 </project>

@@ -4,6 +4,7 @@ import com.yjxxt.common.result.BaseResult;
 import com.yjxxt.manager.pojo.GoodsCategory;
 import com.yjxxt.manager.service.IGoodsCategoryService;
 import com.yjxxt.manager.vo.GoodsCategoryVo;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,8 @@ import java.util.List;
 public class GoodsCategoryController {
     @Resource
     private IGoodsCategoryService goodsCategoryService;
+    @Reference(version = "1.0")
+    private com.yjxxt.rpc.service.IGoodsCategoryService goodsCategoryService1;
 
     /**
      * 商品分类列表
@@ -67,5 +70,12 @@ public class GoodsCategoryController {
     public List<GoodsCategoryVo> queryGoodsCategoryVoForListView(){
         return goodsCategoryService.queryGoodsCategoryVoForListView();
     }
+    @RequestMapping("test")
+    @ResponseBody
+    public List<com.yjxxt.rpc.vo.GoodsCategoryVo> queryGoodsCategoryVoForListViewByRpc(){
+        return goodsCategoryService1.queryGoodsCategoryVoForListView();
+    }
+
+
 }
 
