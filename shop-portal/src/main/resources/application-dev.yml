@@ -93,4 +93,10 @@ dubbo:
     address: zookeeper://192.168.63.100:2181
   consumer:
     timeout: 20000
+# Redis Key
+#用户票据key
+user.ticket: user:userTicket
 
+shop:
+  order:
+    url: http://localhost:9092/shop-order

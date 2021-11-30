@@ -2,3 +2,5 @@
 shop-common/target
 shop-generator/target
 shop-manager/target
+shop-portal/target
+shop-rpc1/target

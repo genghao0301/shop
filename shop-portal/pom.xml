@@ -96,6 +96,12 @@
             <artifactId>dubbo-dependencies-zookeeper</artifactId>
             <type>pom</type>
         </dependency>
+
+        <dependency>
+            <groupId>com.yjxxt</groupId>
+            <artifactId>shop-sso</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

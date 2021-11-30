@@ -1,22 +1,6 @@
-<!-- 设置项目根路径全局变量 -->
-<#assign ctx=request.contextPath/>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>EGO商城</title>
-    <link href="${ctx}/css/main.css" rel="stylesheet" type="text/css"/>
-    <!--[if IE 6]>
-<link href="${ctx}/css/main.ie6.css" rel="stylesheet" type="text/css" />
-<![endif]-->
-    <!--[if IE 7]>
-<link href="${ctx}/css/main.ie7.css" rel="stylesheet" type="text/css" />
-<![endif]-->
-    <script type="text/javascript" src="${ctx}/js/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="${ctx}/js/jquery-imgslideshow.js"></script>
-    <script type="text/javascript" src="${ctx}/js/ks-switch.js"></script>
-    <script type="text/javascript" src="${ctx}/js/lib.js"></script>
-    <script type="text/javascript" src="${ctx}/js/layer/layer.js"></script>
-    <script type="text/javascript" src="${ctx}/js/doT.min.js"></script>
+    <#include "common/head.ftl" />
     <script type="text/javascript">
         var timeout = 500;
         var closetimer = 0;
@@ -122,22 +106,9 @@
 <div id="doc">
     <div id="s_hdw">
 
-        <div id="s_tbar">
-            <div class="s_hd">
-                <div class="tbar_lft">您好，欢迎来到EGO商城！<a href="#">请登录</a> | <a href="#">免费注册</a></div>
-                <div class="tbar_rgt">
-                    <ul>
-                        <li class="first"><a href="#">我的订单</a></li>
-                        <li><a href="#">我的EGO商城</a></li>
-                        <li><a href="#">帮助中心</a></li>
-                        <li><a href="#">联系客服</a></li>
-                        <li><a href="#">加入收藏</a></li>
-                        <li class="s_tel_str">服务热线：</li>
-                        <li class="s_tel">400-009-1906</li>
-                    </ul>
-                </div>
-            </div>
-        </div><!--s_tbar end-->
+
+        <#include "common/welcome.ftl" />
+
 
         <div class="s_hd nav">
             <div id="s_logo"><a href="#"><img src="${ctx}/images/logo.png" border="0"/></a></div>
@@ -154,9 +125,9 @@
         <div class="mmenu">
             <div class="s_hd">
                 <div id="s_search">
-                    <form action="" method="post"><input name="" type="text" class="search-input"/><input name=""
-                                                                                                          type="image"
-                                                                                                          src="${ctx}/images/btn_search.jpg"/>
+                    <form action="${ctx}/search/index" method="post">
+                        <input name="searchStr" type="text" class="search-input"/>
+                        <input name="" type="image" src="${ctx}/images/btn_search.jpg"/>
                     </form>
                 </div>
 
@@ -175,14 +146,7 @@
                     </ul>
                 </div>
 
-                <div id="s_cart">
-                    <ul>
-                        <li class="nums"><a href="" id="s_cart_nums1">购物车： <span>0</span> 件</a> <a href="" class="btn"
-                                                                                                   id="s_cart_nums2"></a>
-                        </li>
-                        <li class="checkout"><a href="#">去结算>></a></li>
-                    </ul>
-                </div>
+               <#include "common/cart.ftl" />
 
                 <div id="s_cartbox" class="s_cartbox">您的购物车中暂无商品，赶快选择心爱的商品吧！</div>
 
@@ -190,28 +154,8 @@
                     <div class="cat_hd"><h3><a href="#">所有商品分类</a></h3></div>
                     <div class="cat_bd" style="display:block;">
                         <ul id="goodsCategoryContent">
-                           <#-- <li class="cat_item">
-                                <h4 class="cat_tit">
-									<a href="#" class="cat_tit_link">食品、饮料、酒水</a>
-									<span class="s_arrow">></span>
-								</h4>
-                                <div class="cat_cont">
-                                    <div class="cat_cont_lft">
-                                        <dl class="cf">
-                                            <dt><a href="#">进口食品</a></dt>
-                                            <dd>
-                                                <ul>
-                                                    <li class="first"><a href="#">进口米</a></li>
-                                                    <li><a href="#" class="more">更多</a></li>
-                                                </ul>
-                                            </dd>
-                                        </dl>
 
-                                    </div>
-                                </div>
-                            </li>-->
                         </ul>
-                        <!--<div class="all_cats"><a href="#" class="more">全部商品分类</a></div>-->
                     </div>
                 </div>
             </div>
@@ -371,7 +315,7 @@
                                                         <div class="pic"><a href="#"><img src="${ctx}/images/qg2-3.jpg"
                                                                                           border="0"/></a></div>
                                                         <div class="ptitle"><a href="#">贝亲 滋润型润肤霜35g</a></div>
-                                                        <div class="sprice">特价：<span>¥18.9<span></div>
+                                                        <div class="sprice">特价：<span>¥18.9</span></div>
                                                     </div>
                                                 </li>
                                                 <li>
@@ -380,7 +324,7 @@
                                                                                           border="0"/></a></div>
                                                         <div class="ptitle"><a href="#">好奇干爽舒适纸尿裤S小号 14片/包 赠品变动</a>
                                                         </div>
-                                                        <div class="sprice">特价：<span>¥12.8<span></div>
+                                                        <div class="sprice">特价：<span>¥12.8</span></div>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -410,7 +354,7 @@
                                                         <div class="pic"><a href="#"><img src="${ctx}/images/qg3-3.jpg"
                                                                                           border="0"/></a></div>
                                                         <div class="ptitle"><a href="#">5830升级版跌破2000，还不来抢！</a></div>
-                                                        <div class="sprice">特价：<span>¥1998<span></div>
+                                                        <div class="sprice">特价：<span>¥1998</span></div>
                                                     </div>
                                                 </li>
                                                 <li>
@@ -418,7 +362,7 @@
                                                         <div class="pic"><a href="#"><img src="${ctx}/images/qg3-4.jpg"
                                                                                           border="0"/></a></div>
                                                         <div class="ptitle"><a href="#">智多熊 早教益智玩具v15</a></div>
-                                                        <div class="sprice">特价：<span>¥99<span></div>
+                                                        <div class="sprice">特价：<span>¥99</span></div>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -449,7 +393,7 @@
                                                         <div class="pic"><a href="#"><img src="${ctx}/images/qg4-3.jpg"
                                                                                           border="0"/></a></div>
                                                         <div class="ptitle"><a href="#">闽龙达 嫩香菇200g</a></div>
-                                                        <div class="sprice">特价：<span>¥56.5<span></div>
+                                                        <div class="sprice">特价：<span>¥56.5</span></div>
                                                     </div>
                                                 </li>
                                                 <li>
@@ -457,7 +401,7 @@
                                                         <div class="pic"><a href="#"><img src="${ctx}/images/qg4-4.jpg"
                                                                                           border="0"/></a></div>
                                                         <div class="ptitle"><a href="#">鲜得味天然泉水金枪鱼180g/罐（泰国）</a></div>
-                                                        <div class="sprice">特价：<span>¥14.5<span></div>
+                                                        <div class="sprice">特价：<span>¥14.5</span></div>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -1026,7 +970,10 @@
 <script type="text/javascript">
     // 进入页面获取商品分类列表
     $(function () {
+
+        //
         selectGoodsCategoryList();
+
     });
 
     // 获取商品分类列表
@@ -1059,6 +1006,9 @@
             }
         });
     }
+
+
+
 </script>
 
 
