@@ -46,8 +46,8 @@ public class CartController {
     @ResponseBody
     public BaseResult saveCartVo(CartVo cartVo, HttpSession session){
         Admin admin = (Admin) session.getAttribute("user");
-        System.out.println(admin);
-        System.out.println(admin.getAdminId());
+//        System.out.println(admin);
+//        System.out.println(admin.getAdminId());
         return  cartService.saveCartVo(cartVo, Integer.parseInt(admin.getAdminId().toString()));
     }
 

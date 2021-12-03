@@ -30,7 +30,7 @@ public class ManagerConfig extends WebMvcConfigurerAdapter {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/bootstrap/**",
                         "/css/**","/dist/**","/images/**",
-                        "/img/**","js/**","/plugins/**")
+                        "/img/**","/js/**","/plugins/**")
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/image/**")
                 .excludePathPatterns("/user/login")

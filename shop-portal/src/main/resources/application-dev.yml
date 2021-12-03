@@ -1,5 +1,5 @@
 server:
-  port: 9092                                # 项目访问端口，默认 8080
+  port: 9091                              # 项目访问端口，默认 8080
   servlet:                                 # 项目访问路径，默认 /
     context-path: /shop-portal
 # Spring

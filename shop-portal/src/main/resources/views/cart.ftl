@@ -219,7 +219,7 @@
                     </tr>
                     <tr>
                         <td style="border:none;padding-top:20px;" colspan="6">
-                            <input type="button" value="" id="" class="btnimg f-r"/>
+                            <a href="${ctx}/cart/toPreOrder"> <input type="button" value="" id=""  class="btnimg f-r"/></a>
                             <a class="f-r goonbtn" href="#">
                                 <img src="${ctx}/images/gooncat.gif" width="86" height="24" alt=""/>
                             </a>

@@ -15,6 +15,7 @@
         <module>shop-portal</module>
         <module>shop-rpc1</module>
         <module>shop-sso</module>
+        <module>shop-order</module>
     </modules>
     <!-- 继承 spring-boot-starter-parent 依赖 -->
     <!-- 使用继承方式，实现复用，符合继承的都可以被使用 -->
