@@ -48,6 +48,12 @@
         <!-- google kaptcha依赖 -->
         <kaptcha.version>0.0.9</kaptcha.version>
 
+        <alipay.version>1.0</alipay.version>
+
+        <logging.version>1.2</logging.version>
+
+        <sms.version>2.0.5</sms.version>
+
     </properties>
     <!-- 项目依赖管理 父项目只是声明依赖，子项目需要写明需要的依赖(可以省略版本
     信息) -->
@@ -104,6 +110,24 @@
             <groupId>com.github.axet</groupId>
             <artifactId>kaptcha</artifactId>
             <version>${kaptcha.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${logging.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yjxxt.pay</groupId>
+            <artifactId>alipay</artifactId>
+            <version>${alipay.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>dysmsapi20170525</artifactId>
+            <version>${sms.version}</version>
         </dependency>
     </dependencies>
 

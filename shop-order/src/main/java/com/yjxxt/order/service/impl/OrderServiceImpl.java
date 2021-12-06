@@ -1,10 +1,14 @@
 package com.yjxxt.order.service.impl;
 
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.internal.util.AlipaySignature;
 import com.yjxxt.common.enums.*;
 import com.yjxxt.common.result.BaseResult;
+import com.yjxxt.order.config.AlipayConfig;
 import com.yjxxt.order.mapper.OrderGoodsMapper;
 import com.yjxxt.order.mapper.OrderMapper;
 import com.yjxxt.order.pojo.Order;
+import com.yjxxt.order.pojo.OrderExample;
 import com.yjxxt.order.pojo.OrderGoods;
 import com.yjxxt.order.service.IOrderService;
 import com.yjxxt.rpc.service.ICartService;
@@ -17,8 +21,11 @@ import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 @Service
@@ -78,7 +85,7 @@ public class OrderServiceImpl implements IOrderService {
         //设置订单总价
         order.setTotalAmount(cartResult.getTotalPrice());
         //数据库格式有误  范围超
-        order.setAddTime(((Long)System.currentTimeMillis()).intValue());
+//        order.setAddTime(((Long)System.currentTimeMillis()).intValue());
 //        System.out.println("测试");
 //        System.out.println(((Long)System.currentTimeMillis()).intValue());
         //获取订单添加结果
@@ -118,6 +125,148 @@ public class OrderServiceImpl implements IOrderService {
         return baseResult;
     }
 
+    @Override
+    public Order queryOrderByOrderSn(String orderSn) {
+        //设置查询条件
+        OrderExample example=new OrderExample();
+        example.createCriteria().andOrderSnEqualTo(orderSn);
+        List<Order> orders =orderMapper.selectByExample(example);
+        if(!CollectionUtils.isEmpty(orders)){
+            return orders.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public BaseResult returnCallback(String outTradeNo,
+                                     BigDecimal totalAmount,
+                                     String tradeNo,
+                                     HttpServletRequest request) {
+        try {
+            //获取支付宝GET过来反馈信息
+            Map<String,String> params = new HashMap<String,String>();
+            Map<String,String[]> requestParams = request.getParameterMap();
+            for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
+                String name = (String) iter.next();
+                String[] values = (String[]) requestParams.get(name);
+                String valueStr = "";
+                for (int i = 0; i < values.length; i++) {
+                    valueStr = (i == values.length - 1) ? valueStr + values[i]
+                            : valueStr + values[i] + ",";
+                }
+                params.put(name, valueStr);
+            }
+            boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
+            if(signVerified) {
+                System.out.println("请求合法...");
+                /**
+                 * 订单状态更新
+                 *    参数: 订单编号  支付宝支付流水  订单金额
+                 *   订单更新思路
+                 *     I.参数校验
+                 *       1.订单记录查询
+                 *       2.记录存在校验
+                 *       3.订单支付状态校验(未支付)
+                 *       4.订单金额校验
+                 *     II.订单状态更新
+                 */
+                Order order = this.queryOrderByOrderSn(outTradeNo);
+                if(null == order){
+                    return BaseResult.error("订单记录不存在!");
+                }
+
+                if(order.getPayStatus().equals(PayStatus.has_payed.getStatus())){
+                    return BaseResult.success();
+                }
+
+                if(order.getTotalAmount().compareTo(totalAmount) !=0){
+                    return BaseResult.error("订单金额异常!");
+                }
+
+                // 设置订单支付状态为已支付
+                order.setPayStatus(PayStatus.has_payed.getStatus());
+                order.setShippingStatus(ShipStatus.has_send.getStatus());
+                order.setPayCode(tradeNo);
+                order.setPayName("支付宝支付");
+                //order.setPayTime(new Date());
+                if(orderMapper.updateByPrimaryKeySelective(order) !=1){
+                    return  BaseResult.error("订单支付异常，请联系客服!");
+                }
+                return BaseResult.success();
+            }
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public BaseResult notifyCallback(String outTradeNo,
+                                     BigDecimal totalAmount,
+                                     String tradeNo, String tradeStatus, HttpServletRequest request) {
+        try {
+            //获取支付宝GET过来反馈信息
+            Map<String,String> params = new HashMap<String,String>();
+            Map<String,String[]> requestParams = request.getParameterMap();
+            for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
+                String name = (String) iter.next();
+                String[] values = (String[]) requestParams.get(name);
+                String valueStr = "";
+                for (int i = 0; i < values.length; i++) {
+                    valueStr = (i == values.length - 1) ? valueStr + values[i]
+                            : valueStr + values[i] + ",";
+                }
+                params.put(name, valueStr);
+            }
+            boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
+            if(signVerified) {
+                System.out.println("请求合法...");
+                // 支付成功时 更新订单状态
+                if(tradeStatus.equals("TRADE_SUCCESS")){
+                    /**
+                     * 订单状态更新
+                     *    参数: 订单编号  支付宝支付流水  订单金额
+                     *   订单更新思路
+                     *     I.参数校验
+                     *       1.订单记录查询
+                     *       2.记录存在校验
+                     *       3.订单支付状态校验(未支付)
+                     *       4.订单金额校验
+                     *     II.订单状态更新
+                     */
+                    Order order = this.queryOrderByOrderSn(outTradeNo);
+                    if(null == order){
+                        return BaseResult.error("订单记录不存在!");
+                    }
+
+                    if(order.getPayStatus().equals(PayStatus.has_payed.getStatus())){
+                        return BaseResult.success();
+                    }
+
+                    if(order.getTotalAmount().compareTo(totalAmount) !=0){
+                        return BaseResult.error("订单金额异常!");
+                    }
+
+                    // 设置订单支付状态为已支付
+                    order.setPayStatus(PayStatus.has_payed.getStatus());
+                    order.setShippingStatus(ShipStatus.has_send.getStatus());
+                    order.setPayCode(tradeNo);
+                    order.setPayName("支付宝支付");
+                    //order.setPayTime(new Date());
+                    if(orderMapper.updateByPrimaryKeySelective(order) !=1){
+                        return  BaseResult.error("订单支付异常，请联系客服!");
+                    }
+                    return BaseResult.success();
+                }
+            }
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+        return BaseResult.error();
+
+    }
+
     /**
      * 生成redis自增key
      *
@@ -128,4 +277,6 @@ public class OrderServiceImpl implements IOrderService {
         RedisAtomicLong entityIdCounter = new RedisAtomicLong(key, redisTemplate.getConnectionFactory());
         return entityIdCounter.getAndIncrement();
     }
+
+
 }

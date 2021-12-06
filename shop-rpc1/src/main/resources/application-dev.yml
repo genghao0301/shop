@@ -78,3 +78,9 @@ elasticsearch:
 ## 购物车
 user:
   cartKey: user:cart
+sms:
+  endpoint: dysmsapi.aliyuncs.com
+  accessKeyId: LTAI4G15xx72Dho4XFh8adN1
+  accessKeySecret: jjS1VASuY7w4GEt6JCbSNBPb3RLE7k
+  signName: ego商城
+  templateCode: SMS_168725412

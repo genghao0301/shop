@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>EGO商城</title>
     <link href="${ctx}/css/main.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="${ctx}/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="${ctx}/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="${ctx}/js/jquery-imgslideshow.js"></script>
     <script type="text/javascript" src="${ctx}/js/ks-switch.js"></script>
     <script type="text/javascript" src="${ctx}/js/lib.js"></script>
